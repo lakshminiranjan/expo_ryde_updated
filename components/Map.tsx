@@ -13,7 +13,7 @@ import {
 import { useDriverStore, useLocationStore } from "@/store";
 import { Driver, MarkerData } from "@/types/type";
 
-const directionsAPI = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY;
+const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
 const Map = () => {
   const {
@@ -57,7 +57,7 @@ const Map = () => {
         setDrivers(drivers as MarkerData[]);
       });
     }
-  }, [markers, destinationLatitude, destinationLongitude]);
+  }, [markers, destinationLatitude, destinationLongitude, setDrivers, userLatitude, userLongitude]);
 
   const region = calculateRegion({
     userLatitude,
@@ -105,7 +105,7 @@ const Map = () => {
         />
       ))}
 
-      {destinationLatitude && destinationLongitude && (
+      {destinationLatitude && destinationLongitude && userLatitude && userLongitude && directionsAPI && (
         <>
           <Marker
             key="destination"
@@ -118,16 +118,19 @@ const Map = () => {
           />
           <MapViewDirections
             origin={{
-              latitude: userLatitude!,
-              longitude: userLongitude!,
+              latitude: userLatitude,
+              longitude: userLongitude,
             }}
             destination={{
               latitude: destinationLatitude,
               longitude: destinationLongitude,
             }}
-            apikey={directionsAPI!}
+            apikey={directionsAPI}
             strokeColor="#0286FF"
             strokeWidth={2}
+            onError={(errorMessage) => {
+              console.log("Directions API error:", errorMessage);
+            }}
           />
         </>
       )}

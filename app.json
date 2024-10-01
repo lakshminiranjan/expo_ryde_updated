@@ -13,13 +13,27 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "process.env.EXPO_PUBLIC_GOOGLE_API_KEY"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#2f80ed"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "process.env.EXPO_PUBLIC_GOOGLE_API_KEY"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET"
+      ],
+      "package": "com.niranjan_nizy.uber"
     },
     "web": {
       "bundler": "metro",
@@ -30,12 +44,33 @@
       [
         "expo-router",
         {
-          "origin": "https://uber.dev/"
+          "origin": "process.env.EXPO_PUBLIC_SERVER_URL"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "process.env.EXPO_PUBLIC_SERVER_URL"
+      },
+      "eas": {
+        "projectId": "4c660855-9bec-405a-a12d-eda8925afe10"
+      },
+      "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY",
+      "DATABASE_URL": "process.env.DATABASE_URL",
+      "EXPO_PUBLIC_SERVER_URL": "process.env.EXPO_PUBLIC_SERVER_URL",
+      "EXPO_PUBLIC_GEOAPIFY_API_KEY": "process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY",
+      "EXPO_PUBLIC_GOOGLE_API_KEY": "process.env.EXPO_PUBLIC_GOOGLE_API_KEY",
+      "EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY": "process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+      "STRIPE_SECRET_KEY": "process.env.STRIPE_SECRET_KEY"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4c660855-9bec-405a-a12d-eda8925afe10"
     }
   }
 }

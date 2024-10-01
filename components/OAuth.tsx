@@ -12,13 +12,18 @@ const OAuth = () => {
   const handleGoogleSignIn = async () => {
     const result = await googleOAuth(startOAuthFlow);
 
-    if (result.code === "session_exists") {
-      Alert.alert("Success", "Session exists. Redirecting to home screen.");
-      router.replace("/(root)/(tabs)/home");
-    }
+    console.log(result); // Log the result to check its structure
 
-    Alert.alert(result.success ? "Success" : "Error", result.message);
+    if (result.code === "session_exists" || result.code === "success") {
+      Alert.alert("Success", "Session exists. Redirecting to home screen.");
+
+      // You can try router.replace instead of push
+      router.replace("/(root)/(tabs)/home");
+    } else {
+      Alert.alert(result.success ? "Success" : "Error", result.message);
+    }
   };
+
 
   return (
     <View>
